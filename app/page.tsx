@@ -1,3 +1,10 @@
-export default function Home() {
-  return <h1 className="font-bold text-5xl text-center">Calendra app</h1>;
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import LandingPage from "../components/LandingPage";
+
+export default async function HomePage() {
+  const user = await currentUser();
+
+  if (!user) return <LandingPage />;
+  return redirect("/events");
 }
